@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -14,28 +15,51 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
-        if ($hasil = $request->cari) {
-            return $this->tasklist[$hasil];
+        if ($request->cari) {
+            $tasks = DB::table('tasks')
+            ->where('time', 'LIKE', "%$request->cari%")
+            ->get();
+
+            return $tasks;
+
+            // return $this->tasklist[$request->cari];
         }
-        return $this->tasklist;
+
+        $tasks = DB::table('tasks')->get();
+        return $tasks;
     }
 
     public function store(Request $request)
     {
-        $this->tasklist[$request->key] = $request->value;
-        return $this->tasklist;
+        // $this->tasklist[$request->key] = $request->value;
+        // return $this->tasklist;
+
+        DB::table('tasks')->insert([
+            'tasks' => $request->task,
+            'time' => $request->time
+        ]);
+
+        return 'success';
     }
 
-    public function show($parameter)
+    public function show($id)
     {
-        return $this->tasklist[$parameter];
+        $task = DB::table('tasks')->where('id', $id)->first();
+        return ddd($task);
+
+        // return $this->tasklist[$parameter];
     }
 
 
-    public function update(Request $request, $key)
+    public function update(Request $request, $id)
     {
-        $this->tasklist[$key] = $request->task;
-        return $this->tasklist;
+        $task = DB::table('tasks')->where('id', $id)->update([
+            'tasks' => $request->task,
+            'time' => $request->time
+        ]);
+
+        ddd($task);
+        // return $this->tasklist;
     }
 
     public function destroy($key)
