@@ -7,18 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    private $tasklist = [
-        'satu' => 'belajar laravel',
-        'dua' => 'belajar laravel2',
-        'tiga' => 'belajar laravel3',
-    ];
-
     public function index(Request $request)
     {
         if ($request->cari) {
             $tasks = DB::table('tasks')
-            ->where('time', 'LIKE', "%$request->cari%")
-            ->get();
+                ->where('time', 'LIKE', "%$request->cari%")
+                ->get();
 
             return $tasks;
 
@@ -58,13 +52,17 @@ class TaskController extends Controller
             'time' => $request->time
         ]);
 
+        return 'berhasil hore';
         ddd($task);
         // return $this->tasklist;
     }
 
-    public function destroy($key)
+    public function destroy($id)
     {
-        unset($this->tasklist[$key]);
-        return $this->tasklist;
+        DB::table('tasks')
+            ->where('id', $id)
+            ->delete();
+
+        return 'berhasil dihapus';
     }
 }
