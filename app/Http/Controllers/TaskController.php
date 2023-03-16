@@ -15,8 +15,16 @@ class TaskController extends Controller
             return $tasks;
         }
 
-        $tasks = Task::all();
-        return $tasks;
+        $tasks = Task::paginate(5);
+        // return $tasks;
+        return view('task.index', [
+            'data' => $tasks
+        ]);
+    }
+
+    public function create()
+    {
+        return view('task.create');
     }
 
     public function store(Request $request)
@@ -33,6 +41,11 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
         return $task;
+    }
+
+    public function edit($id)
+    {
+        return view('task.edit');
     }
 
 
