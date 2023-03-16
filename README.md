@@ -4,6 +4,5 @@
 3. Run `cp .env.example .env`
 4. Open your .env file and change the database name (DB_DATABASE) to whatever you have, username (DB_USERNAME) and password (DB_PASSWORD) field correspond to your configuration.
 3. Run `php artisan key:generate`
-4. Run `php artisan migrate`
-5. Run `php artisan db:seed`
-6. Run `php artisan serve`
+4. Run `php artisan migrate:fresh --seed`
+5. Run `php artisan serve`
