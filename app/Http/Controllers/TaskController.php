@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,25 +11,17 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         if ($request->cari) {
-            $tasks = DB::table('tasks')
-                ->where('time', 'LIKE', "%$request->cari%")
-                ->get();
-
+            $tasks = Task::where('time', 'LIKE', "%$request->cari%")->get();
             return $tasks;
-
-            // return $this->tasklist[$request->cari];
         }
 
-        $tasks = DB::table('tasks')->get();
+        $tasks = Task::all();
         return $tasks;
     }
 
     public function store(Request $request)
     {
-        // $this->tasklist[$request->key] = $request->value;
-        // return $this->tasklist;
-
-        DB::table('tasks')->insert([
+        Task::create([
             'tasks' => $request->task,
             'time' => $request->time
         ]);
@@ -38,30 +31,28 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $task = DB::table('tasks')->where('id', $id)->first();
-        return ddd($task);
-
-        // return $this->tasklist[$parameter];
+        $task = Task::find($id);
+        return $task;
     }
 
 
     public function update(Request $request, $id)
     {
-        $task = DB::table('tasks')->where('id', $id)->update([
+        $task = Task::find($id);
+
+        $task->update([
             'tasks' => $request->task,
             'time' => $request->time
         ]);
 
-        return 'berhasil hore';
+        return $task;
         ddd($task);
-        // return $this->tasklist;
     }
 
     public function destroy($id)
     {
-        DB::table('tasks')
-            ->where('id', $id)
-            ->delete();
+        $task = Task::find($id);
+        $task->delete();
 
         return 'berhasil dihapus';
     }
