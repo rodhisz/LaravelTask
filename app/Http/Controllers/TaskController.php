@@ -30,11 +30,11 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         Task::create([
-            'tasks' => $request->task,
+            'tasks' => $request->tasks,
             'time' => $request->time
         ]);
 
-        return 'success';
+        return redirect('/tasks');
     }
 
     public function show($id)
@@ -45,7 +45,8 @@ class TaskController extends Controller
 
     public function edit($id)
     {
-        return view('task.edit');
+        $task = Task::find($id);
+        return view('task.edit',compact('task'));
     }
 
 
@@ -54,12 +55,11 @@ class TaskController extends Controller
         $task = Task::find($id);
 
         $task->update([
-            'tasks' => $request->task,
+            'tasks' => $request->tasks,
             'time' => $request->time
         ]);
 
-        return $task;
-        ddd($task);
+        return redirect('/tasks');
     }
 
     public function destroy($id)
