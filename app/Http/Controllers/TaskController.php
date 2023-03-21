@@ -15,7 +15,7 @@ class TaskController extends Controller
             return $tasks;
         }
 
-        $tasks = Task::paginate(5);
+        $tasks = Task::paginate(20);
         // return $tasks;
         return view('task.index', [
             'data' => $tasks
@@ -29,6 +29,11 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'tasks' => ['required'],
+            'time' => ['required'],
+        ]);
+
         Task::create([
             'tasks' => $request->tasks,
             'time' => $request->time
@@ -46,7 +51,7 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-        return view('task.edit',compact('task'));
+        return view('task.edit', compact('task'));
     }
 
 
@@ -67,6 +72,6 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->delete();
 
-        return 'berhasil dihapus';
+        return redirect('/tasks');
     }
 }
