@@ -16,8 +16,7 @@
                     </div>
                     <div class="col-10 mb-1 small">{{ $i->time }}</div>
                     <div class="group-action">
-                        <form action="{{ url("tasks/$i->id") }}" method="POST"
-                            >
+                        <form action="{{ url("tasks/$i->id") }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <a href="{{ url("/task/$i->id/edit") }}" class="badge bg-info text-white">edit</a>

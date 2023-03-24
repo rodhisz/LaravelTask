@@ -174,6 +174,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        
+        //tambahin ini untuk fortify
+        App\Providers\FortifyServiceProvider::class,
 
     ],
 
