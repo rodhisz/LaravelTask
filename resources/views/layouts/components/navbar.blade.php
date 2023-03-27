@@ -10,7 +10,8 @@
                     <a href="{{ route('register') }}" class="btn btn-warning">Sign-up</a>
                 @else
                     <a href="{{ route('logout') }}" class="btn btn-outline-light me-2"
-                        onclick="event.preventDefault(); document.getElementById('logout').submit();">{{ Auth::user()->name }}</a>
+                        onclick="event.preventDefault(); document.getElementById('logout')
+                        .submit();">{{ Auth::user()->name }}</a>
 
                     <form action="{{ route('logout') }}" id="logout" method="POST">
                         @csrf</form>
