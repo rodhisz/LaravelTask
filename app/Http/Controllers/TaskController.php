@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
+    //middleware di controller daripada di copy satu satu di route
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verified');
+        $this->middleware('is_admin');
+    }
+
     public function index(Request $request)
     {
         if ($request->cari) {
-            $tasks = Task::where('time', 'LIKE', "%$request->cari%")->get();
+            $tasks = Task::where('tasks', 'LIKE', "%$request->cari%")->get();
             return $tasks;
         }
 
