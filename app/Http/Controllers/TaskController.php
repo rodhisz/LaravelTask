@@ -38,10 +38,18 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request)
     {
-        Task::create([
-            'tasks' => $request->tasks,
-            'time' => $request->time
-        ]);
+
+        // $newTask = new Task;
+        // $newTask -> tasks = $request->tasks;
+        // $newTask -> time = $request->time;
+
+        // Task::create([
+        //     'tasks' => $request->tasks,
+        //     'time' => $request->time
+        // ]);
+
+        $input = $request->all();
+        Task::create($input);
 
         return redirect('/tasks');
     }
