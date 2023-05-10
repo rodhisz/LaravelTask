@@ -25,7 +25,6 @@ class TaskController extends Controller
         }
 
         $tasks = Task::paginate(20);
-        // return $tasks;
         return view('task.index', [
             'data' => $tasks
         ]);
